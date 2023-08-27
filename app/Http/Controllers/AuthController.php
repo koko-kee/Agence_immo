@@ -11,7 +11,6 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    
 
     public function login()
     {
@@ -21,11 +20,11 @@ class AuthController extends Controller
     public function doLogin(LoginRequest $request)
     {
        $credentials = $request->validated();
-       if(Auth::attempt($credentials))
-       {
+        if(Auth::attempt($credentials))
+        {
            $request->session()->regenerate();
            return redirect()->intended(route('property.index')); 
-       }
+        }
        return redirect()->route('login')->with('error','Email ou mot de passe incorrect');
     }
 

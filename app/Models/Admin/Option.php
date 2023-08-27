@@ -2,8 +2,9 @@
 
 namespace App\Models\Admin;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Admin\Property;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Option extends Model
 {
@@ -15,7 +16,7 @@ class Option extends Model
 
     public function property()
     {
-        return $this->belongsToMany(property::class);
+        return $this->belongsToMany(Property::class);
     }
 
 

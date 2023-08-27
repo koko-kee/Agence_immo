@@ -6,7 +6,7 @@ use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class property extends Model
+class Property extends Model
 {
     use HasFactory;
 

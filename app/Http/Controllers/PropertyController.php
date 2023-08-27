@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Admin\property;
+use App\Models\Admin\Property;
 use App\Mail\PropertContactMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\FormContactRequest;
@@ -13,7 +13,7 @@ class PropertyController extends Controller
 {
     public function index(Request $request)
     {
-        $query = property::query()->with('image');
+        $query = Property::query()->with('image');
         
         if(!empty($request->input('price')))
         {
@@ -39,14 +39,14 @@ class PropertyController extends Controller
         ]);
     }
 
-    public function show(string $name , property $property  )
+    public function show(string $name , Property $property)
     {
         return View('property.show',[
             "property" =>  $property
         ]);
     }
 
-    public function contact(property $property , FormContactRequest $request )
+    public function contact(Property $property,FormContactRequest $request )
     {
         Mail::send(new PropertContactMail($property ,$request->validated()));
         return back()->with('success','Votre demande de contact a ete envoye');

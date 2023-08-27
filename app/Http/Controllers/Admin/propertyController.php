@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormPropertyRequest;
 use App\Models\Admin\Option;
-use App\Models\Admin\property;
+use App\Models\Admin\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -16,13 +16,13 @@ class propertyController extends Controller
     public function index()
     {
         return View('property.index',[
-            "properties" => property::orderBy('created_at','desc')->paginate(25)
+            "properties" => Property::orderBy('created_at','desc')->paginate(25)
         ]);
     }
 
     public function create()
     {
-        $property = new property();
+        $property = new Property();
 
         $property->fill([
 
@@ -44,6 +44,8 @@ class propertyController extends Controller
 
     public function store(FormPropertyRequest $request)
     {
+        
+
         $validatedData = $request->validated();
         $images = $validatedData['images'] ?? null; 
 
@@ -62,7 +64,7 @@ class propertyController extends Controller
     }
 
 
-    public function edit(property $property)
+    public function edit(Property $property)
     {
         return View('property.edit',[
             "options" => Option::all(),
@@ -70,7 +72,7 @@ class propertyController extends Controller
         ]);
     }
 
-    public function update(property $property , FormPropertyRequest $request )
+    public function update(Property $property , FormPropertyRequest $request )
     {
         $validatedData = $request->validated();
         $images = $validatedData['images'] ?? null;
@@ -94,6 +96,7 @@ class propertyController extends Controller
         }
     
         $property->update($validatedData);
+        $property->option()->sync($validatedData['options'] ?? []);
         return redirect()->route('property.index')->with('success', 'Le bien a bien été modifier');
     }
     

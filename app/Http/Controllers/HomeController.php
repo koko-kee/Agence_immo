@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function welcome()
     {
         return view('welcome', [
-            'properties' => property::with('image')->orderBy('created_at', 'desc')->limit(4)->get(),
+            'properties' => Property::with('image')->orderBy('created_at', 'desc')->limit(4)->get(),
         ]);
     }
 }

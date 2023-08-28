@@ -7,11 +7,14 @@ use App\Http\Requests\FormPropertyRequest;
 use App\Models\Admin\Option;
 use App\Models\Admin\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class propertyController extends Controller
 {
+
+    
   
     public function index()
     {
@@ -74,6 +77,8 @@ class propertyController extends Controller
 
     public function update(Property $property , FormPropertyRequest $request )
     {
+
+
         $validatedData = $request->validated();
         $images = $validatedData['images'] ?? null;
     
@@ -103,6 +108,7 @@ class propertyController extends Controller
 
     public function remove(property $property)
     {
+        $this->authorize('delete',$property);
         if($property->image)
         {
             foreach($property->image as $image)

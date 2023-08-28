@@ -33,7 +33,9 @@
                 <td>{{$property->city}}</td>
                 <td>
                     <a href="{{route('property.edit',["property" => $property->id])}}" class="btn btn-primary">Editer</a>
+                    @can('delete',$property)
                     <a href="{{route('property.delete',["property" => $property->id])}}" class="btn btn-danger">supprimer</a>
+                    @endcan
                 </td>
               </tr> 
               @endforeach

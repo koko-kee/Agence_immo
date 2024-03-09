@@ -14,7 +14,7 @@ class PropertyController extends Controller
     public function index(Request $request)
     {
         $query = Property::query()->with('image');
-        
+
         if(!empty($request->input('price')))
         {
             $query = $query->where('price' , '<=' , $request->input('price'));
@@ -35,7 +35,7 @@ class PropertyController extends Controller
             $query = $query->where('title', 'like', '%' . $request->input('title') . '%');
         }
         return view('all', [
-            'properties' => $query->paginate(25),
+            'properties' => $query->orderByDesc('created_at') ->paginate(25),
         ]);
     }
 
@@ -50,5 +50,5 @@ class PropertyController extends Controller
     {
         Mail::send(new PropertContactMail($property ,$request->validated()));
         return back()->with('success','Votre demande de contact a ete envoye');
-    }  
+    }
 }

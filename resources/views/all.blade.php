@@ -26,13 +26,13 @@
 </form>
 <br>
 <div style="display:flex;justify-content:space-between;flex-wrap:wrap" class="content">
-   
+
     @foreach ($properties as $property)
         <div class="card mb-5" style="width: 18rem;">
             @if ($property->image->first())
                <img style="width: 100%; height: 200px; object-fit: cover;" src="/storage/{{$property->image->first()->image}}" class="card-img-top">
             @else
-            <img style="width: 100%; height: 200px; object-fit: cover;" src="" class="card-img-top">
+                <img style="width: 100%; height: 200px; object-fit: cove" src="{{asset('images/immo.jpg')}}" class="card-img-top">
             @endif
             <div class="card-body">
             <h5 class="card-title"><a href="{{route('show',['name' => $property->title , 'property' =>  $property->id ])}}">{{$property->title}}</a></h5>

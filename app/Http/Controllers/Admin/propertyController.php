@@ -14,8 +14,8 @@ use Illuminate\View\View;
 class propertyController extends Controller
 {
 
-    
-  
+
+
     public function index()
     {
         return View('property.index',[
@@ -47,10 +47,10 @@ class propertyController extends Controller
 
     public function store(FormPropertyRequest $request)
     {
-        
+
 
         $validatedData = $request->validated();
-        $images = $validatedData['images'] ?? null; 
+        $images = $validatedData['images'] ?? null;
 
         $property = Property::create($validatedData);
         $property->option()->sync($validatedData['options'] ?? []);
@@ -78,18 +78,20 @@ class propertyController extends Controller
     public function update(Property $property , FormPropertyRequest $request )
     {
 
-
         $validatedData = $request->validated();
-        $images = $validatedData['images'] ?? null;
-    
-        if ($images) {
+
+        if ($request->hasFile('images')) {
+
             $Imagepaths = [];
-    
+            $images = $validatedData['images'];
+
+
             foreach ($images as $image) {
+
                 $pathName = $image->store('blog', 'public');
                 $Imagepaths[] = ['image' => $pathName];
             }
-    
+
             if ($property->image->isNotEmpty()) {
 
                 foreach ($property->image as $image) {
@@ -99,12 +101,12 @@ class propertyController extends Controller
                 $property->image()->createMany($Imagepaths);
             }
         }
-    
+
         $property->update($validatedData);
         $property->option()->sync($validatedData['options'] ?? []);
         return redirect()->route('property.index')->with('success', 'Le bien a bien été modifier');
     }
-    
+
 
     public function remove(property $property)
     {

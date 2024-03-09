@@ -14,6 +14,7 @@
         <h1 class="card-title">@yield('title')</h1>
         <a style="float: right;" href="{{route('property.create')}}" class="btn btn-primary">Ajouter un biens</a>
         <br>
+        <br>
         <table class="table table-bordered"">
             <thead>
               <tr>
@@ -33,15 +34,15 @@
                 <td>{{$property->city}}</td>
                 <td>
                     <a href="{{route('property.edit',["property" => $property->id])}}" class="btn btn-primary">Editer</a>
-                    @can('delete',$property)
+{{--                    @can('delete',$property)--}}
                     <a href="{{route('property.delete',["property" => $property->id])}}" class="btn btn-danger">supprimer</a>
-                    @endcan
+{{--                    @endcan--}}
                 </td>
-              </tr> 
+              </tr>
               @endforeach
             </tbody>
-        </table>  
-        {{$properties->links()}}      
+        </table>
+        {{$properties->links()}}
     </div>
 </div>
 
